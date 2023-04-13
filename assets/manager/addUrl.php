@@ -4,7 +4,7 @@
 	
 	$pdo = $my_DB->pdo;
 
-    $hashsymbols = array(
+    $hash_symbols = array(
         'a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
         'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z',
         '',
@@ -31,7 +31,7 @@
     $array = explode("/", $_SERVER[$url]);
 
 
-	$sql = "insert into url_shortene (target,hash) values (:target, :hash)";
+	$sql = "insert into URLS (target,hash) values (:target, :hash)";
 
 	$cmd = $pdo->prepare($sql);
                   
@@ -39,8 +39,8 @@
 	$hash  = createHash();
 
                    
-	$cmd->bindValue(":target"   , $target);         
-	$cmd->bindValue(":hash"    , $hash); 
+	$cmd->bindValue(":target", $target);         
+	$cmd->bindValue(":hash", $hash); 
 
 	
     if($cmd->execute())

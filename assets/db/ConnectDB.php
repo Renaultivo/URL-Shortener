@@ -7,7 +7,7 @@
         function __construct() {
     
             try {	
-                $this->pdo = new PDO("mysql:host=localhost;dbname=url_shortene","root","vertrigo"); 
+                $this->pdo = new PDO("mysql:host=localhost;dbname=URL_SHORTENER","urlshortener","vertrigo"); 
             } catch(PDOException $e) {
                 die('Failed to connect to local database.');
             }
