@@ -1,5 +1,5 @@
 <?php
-    include_once("../db/connectDB.php");
+    include_once("../db/ConnectDB.php");
     $my_DB = new DB();	
 	
 	$pdo = $my_DB->pdo;
@@ -42,5 +42,17 @@
 	$cmd->bindValue(":target"   , $target);         
 	$cmd->bindValue(":hash"    , $hash); 
 
-	$cmd->execute();
+	
+    if($cmd->execute())
+	{
+		echo json_encode(array(
+			'result' => 201
+		));
+	}
+	else
+	{
+		echo json_encode(array(
+			'result' => 400
+		));
+	}
 ?>
