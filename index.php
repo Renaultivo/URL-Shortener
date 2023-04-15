@@ -1,3 +1,17 @@
+<?php
+
+$array = explode("/", $_SERVER['REQUEST_URI']);
+
+if ($array[1] != "") {
+
+  // SELECT TARGET FORM URLS WHERE HASH = :hash
+
+  header("Location: https://www.google.com");
+
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
   <head>

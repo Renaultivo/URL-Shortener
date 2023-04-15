@@ -28,10 +28,6 @@
     }
 
 
-    $url = $_POST['url'];
-
-    $array = explode("/", $_SERVER[$url]);
-
     $target = $_POST['url'];     
 	$hash  = createHash();
 
