@@ -1,8 +1,10 @@
 <?php
     include_once("../db/ConnectDB.php");
+    
     $my_DB = new DB();	
-	
 	$pdo = $my_DB->pdo;
+
+    $_POST = json_decode(file_get_contents("php://input"), true);
 
     $hash_symbols = array(
         'a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
