@@ -30,29 +30,37 @@
 
     $array = explode("/", $_SERVER[$url]);
 
-
-	$sql = "insert into URLS (target,hash) values (:target, :hash)";
-
-	$cmd = $pdo->prepare($sql);
-                  
-	$target = $_POST['url'];     
+    $target = $_POST['url'];     
 	$hash  = createHash();
 
-                   
-	$cmd->bindValue(":target", $target);         
+ 
+    $sqlSelect = "select * from URLS where target = :target OR hash = :hash";
+    $cmd = $pdo->prepare($sqlSelect);
+
+    $cmd->bindValue(":target", $target);         
 	$cmd->bindValue(":hash", $hash); 
 
-	
-    if($cmd->execute())
-	{
-		echo json_encode(array(
-			'result' => 201
-		));
-	}
-	else
-	{
-		echo json_encode(array(
-			'result' => 400
-		));
-	}
+    $cmd->execute();
+
+
+    if(is_null($cmd->fetchAll(PDO::FETCH_CLASS)))
+    {
+
+        $sql = "insert into URLS (target,hash) values (:target, :hash)";
+
+        $cmd = $pdo->prepare($sql);
+                                   
+        if($cmd->execute())
+        {
+            echo json_encode(array(
+                'result' => 201
+            ));
+        }
+        else
+        {
+            echo json_encode(array(
+                'result' => 400
+            ));
+        }
+    }
 ?>
