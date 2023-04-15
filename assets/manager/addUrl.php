@@ -1,6 +1,6 @@
 <?php
     include_once("../db/ConnectDB.php");
-    
+
     $my_DB = new DB();	
 	$pdo = $my_DB->pdo;
 
@@ -44,14 +44,17 @@
 
     $cmd->execute();
 
+    $result = $cmd->fetchAll(PDO::FETCH_CLASS);
 
-    if(is_null($cmd->fetchAll(PDO::FETCH_CLASS)))
-    {
+    if(count($result) == 0) {
 
-        $sql = "insert into URLS (target,hash) values (:target, :hash)";
+        $sql = "insert into URLS (target, hash) values (:target, :hash)";
 
         $cmd = $pdo->prepare($sql);
-                                   
+
+        $cmd->bindValue(":target", $target);         
+        $cmd->bindValue(":hash", $hash); 
+
         if($cmd->execute())
         {
             echo json_encode(array(
@@ -60,9 +63,18 @@
         }
         else
         {
+
             echo json_encode(array(
-                'result' => 400
+                'result' => 500
             ));
+
         }
+    } else {
+
+        echo json_encode(array(
+            'result' => 409
+        ));
+
     }
+    
 ?>
