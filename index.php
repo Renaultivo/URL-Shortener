@@ -1,12 +1,30 @@
 <?php
+ include_once("../db/ConnectDB.php");
 
-$array = explode("/", $_SERVER['REQUEST_URI']);
+ $my_DB = new DB();	
+ $pdo = $my_DB->pdo;
+
+ $array = explode("/", $_SERVER['REQUEST_URI']);
 
 if ($array[1] != "") {
 
   // SELECT TARGET FORM URLS WHERE HASH = :hash
+  $hash = $array[1];
 
-  header("Location: https://www.google.com");
+  $sqlSelect = "select target from URLS where hash = :hash";
+
+  $cmd = $pdo->prepare($sqlSelect);
+
+  $cmd->bindValue(":hash", $hash);   
+
+  $cmd->execute();
+
+  $result = $cmd->fetchAll(PDO::FETCH_CLASS);
+
+  if(count($result) != 0) {
+
+    header("Location: https://" . $result[0]);
+  }
 
 }
 

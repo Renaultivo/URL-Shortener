@@ -15,7 +15,7 @@ sendButton.onclick = () => {
 
   }
 
-  fetch('/assets/manager/addUrl.php', {
+  fetch('./assets/manager/addUrl.php', {
     method: 'POST',
     body: JSON.stringify({
       url: url
