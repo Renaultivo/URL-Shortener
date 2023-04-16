@@ -1,5 +1,6 @@
 <?php
- include_once("../db/ConnectDB.php");
+
+ include_once("./assets/db/ConnectDB.php");
 
  $my_DB = new DB();	
  $pdo = $my_DB->pdo;
@@ -23,7 +24,8 @@ if ($array[1] != "") {
 
   if(count($result) != 0) {
 
-    header("Location: " . $result[0]);
+    header("Location: " . $result[0]->target);
+ 
   }
   else{
     $errorMensage = "Hash " . $array[1] . " not found in datebase";
