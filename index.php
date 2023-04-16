@@ -23,10 +23,14 @@ if ($array[1] != "") {
 
   if(count($result) != 0) {
 
-    header("Location: https://" . $result[0]);
+    header("Location: " . $result[0]);
+  }
+  else{
+    $errorMensage = "Hash " . $array[1] . " not found in datebase";
   }
 
 }
+
 
 
 ?>
@@ -41,6 +45,12 @@ if ($array[1] != "") {
       <div class="title">URL Shortener</div>
     </header>
     <div id="shortener">
+      <?php
+        if(isset($errorMensage))
+        {
+          echo '<h2>' .$errorMensage . '</h2>';
+        }
+      ?>
       <h2>Short your urls</h2>
       <div class="input-box">
         <input type="text" placeholder="https://example.com/123" id="insertedURL">
