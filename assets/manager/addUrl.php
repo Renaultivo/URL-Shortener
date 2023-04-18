@@ -56,6 +56,7 @@
             echo json_encode(array(
                 'result' => 201
             ));
+            echo json_encode($hash);
         }
         else
         {
