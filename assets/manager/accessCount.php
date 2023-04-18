@@ -1,35 +1,35 @@
 <?php
 
- include_once("./assets/db/ConnectDB.php");
+ include_once("../db/ConnectDB.php");
 
  $my_DB = new DB();	
  $pdo = $my_DB->pdo;
 
+ $_POST = json_decode(file_get_contents("php://input"), true);
 
-if ($array[1] != "") {
 
-  // SELECT TARGET FORM URLS WHERE HASH = :hash
-  $hash = $_POST['hash'];
+ $hash = $_POST['hash'];
 
-  $sqlSelect = "SELECT TARGET, ACCESS_COUNT from URLS where hash = :hash";
+ $sqlSelect = "SELECT TARGET, ACCESS_COUNT from URLS where hash = :hash";
 
-  $cmd = $pdo->prepare($sqlSelect);
+ $cmd = $pdo->prepare($sqlSelect);
 
-  $cmd->bindValue(":hash", $hash);   
+ $cmd->bindValue(":hash", $hash);   
 
-  $cmd->execute();
+ $cmd->execute();
 
-  $result = $cmd->fetchAll(PDO::FETCH_CLASS);
+ $result = $cmd->fetchAll(PDO::FETCH_CLASS);
 
-  if(count($result) != 0) {
-    echo json_encode(array('hash' => $hash,
-    'ACCESS_COUNT' => $result[0]->ACCESS_COUNT));
+ if(count($result) != 0) {
+   echo json_encode(
+     array(
+       'hash' => $hash,
+       'ACCESS_COUNT' => $result[0]->ACCESS_COUNT
+     )
+ );
 
-  }
-  else{
-    $errorMensage = "Hash " . $array[1] . " not found in datebase";
-  }
-
-}
-
+ }
+ else{
+   echo "Hash " . $array[1] . " not found in datebase";
+ }
 ?>

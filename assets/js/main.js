@@ -1,6 +1,8 @@
 const insertedURL = document.getElementById('insertedURL');
 const sendButton = document.getElementById('sendButton');
 
+const hashBox = document.getElementsByClassName('hash-box')[0];
+
 sendButton.onclick = () => {
 
   const url = insertedURL.value;
@@ -11,6 +13,7 @@ sendButton.onclick = () => {
   } else if (!/((https{0,1})\:\/\/){0,1}[a-zA-Z]{1,}\.{0,}[a-zA-Z]{3,}\.[a-zA-Z]{2,}/gm.test(url)) {
 
     alert('Invalid URL');
+
     return;
 
   }
@@ -21,7 +24,16 @@ sendButton.onclick = () => {
       url: url
     })
   }).then(response => {
-    response.text().then(text => console.log(text))
+    response.json().then(json => {
+
+      if (json.result == 201) {
+
+        hashBox.innerHTML = `<h3>Your hash is <span class="hash">${json.hash}</span></h3>`;
+        hashBox.style.display = 'flex';
+
+      }
+
+    });
   });
 
 }

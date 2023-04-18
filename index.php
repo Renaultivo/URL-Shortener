@@ -28,6 +28,7 @@ if ($array[1] != "") {
     $count++;
 
     $sqlUpdate = "UPDATE URLS SET ACCESS_COUNT = :count where hash = :hash";
+
     $cmd = $pdo->prepare($sqlUpdate);
     $cmd->bindValue(":count", $count);
     $cmd->bindValue(":hash" , $hash);
@@ -67,6 +68,7 @@ if ($array[1] != "") {
         <input type="text" placeholder="https://example.com/123" id="insertedURL">
         <img src="./assets/icon/icons8-enviar-e-mail-64.png" id="sendButton">
       </div>
+      <div class="hash-box"></div>
     </div>
     <script src="./assets/js/main.js"></script>
   </body>
