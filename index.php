@@ -27,8 +27,8 @@ if ($array[1] != "") {
     $count = $result[0]->ACCESS_COUNT;
     $count++;
 
-    $sqlInsert = "UPDATE URLS (ACCESS_COUNT) values (:count) where hash = :hash";
-    $cmd = $pdo->prepare($sqlInsert);
+    $sqlUpdate = "UPDATE URLS SET ACCESS_COUNT = :count where hash = :hash";
+    $cmd = $pdo->prepare($sqlUpdate);
     $cmd->bindValue(":count", $count);
     $cmd->bindValue(":hash" , $hash);
     $cmd->execute();
