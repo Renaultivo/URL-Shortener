@@ -12,7 +12,7 @@ if ($array[1] != "") {
   // SELECT TARGET FORM URLS WHERE HASH = :hash
   $hash = $array[1];
 
-  $sqlSelect = "select TARGET, ACCESS_COUNT from URLS where hash = :hash";
+  $sqlSelect = "SELECT TARGET, ACCESS_COUNT from URLS where hash = :hash";
 
   $cmd = $pdo->prepare($sqlSelect);
 
@@ -23,13 +23,14 @@ if ($array[1] != "") {
   $result = $cmd->fetchAll(PDO::FETCH_CLASS);
 
   if(count($result) != 0) {
-    
+
     $count = $result[0]->ACCESS_COUNT;
     $count++;
 
-    $sqlInsert = "insert into URLS (ACCESS_COUNT) values (:count)";
+    $sqlInsert = "UPDATE URLS (ACCESS_COUNT) values (:count) where hash = :hash";
     $cmd = $pdo->prepare($sqlInsert);
     $cmd->bindValue(":count", $count);
+    $cmd->bindValue(":hash" , $hash);
     $cmd->execute();
 
     header("Location: " . $result[0]->target);
