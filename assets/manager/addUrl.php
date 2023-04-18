@@ -54,9 +54,10 @@
         if($cmd->execute())
         {
             echo json_encode(array(
-                'result' => 201
+                'result' => 201,
+                'hash' => $hash
             ));
-            echo json_encode($hash);
+            
         }
         else
         {
