@@ -33,7 +33,7 @@ if ($array[1] != "") {
     $cmd->bindValue(":hash" , $hash);
     $cmd->execute();
 
-    header("Location: " . $result[0]->target);
+    header("Location: " . $result[0]->TARGET);
  
   }
   else{
